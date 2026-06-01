@@ -19,20 +19,33 @@ int main(int argc,char **argv)
 	b = parsing(argc,argv);
 	if(a == NULL)
 		printf("error\n");
+	write(1,"a\n",2);
 	print(a);
+	write(1,"b\n",2);
 	sa(&a);
 	print(a);
-	write(1,"pb\n",3);
-	push(&a,&b);
+	sb(&b);
+	print(b);
+	ss(&a,&b);
 	print(a);
 	print(b);
-	write(1,"pa\n",3);
-	push(&b,&a);
+	pa(&b,&a);
 	print(a);
+	pb(&a,&b);
 	print(b);
 	ra(&a);
 	print(a);
+	rb(&b);
+	print(b);
+	rr(&a,&b);
+	print(a);
+	print(b);
 	rra(&a);
 	print(a);
+	rrb(&b);
+	print(b);
+	rrr(&a,&b);
+	print(a);
+	print(b);
 }
 
