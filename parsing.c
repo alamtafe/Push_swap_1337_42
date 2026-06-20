@@ -1,39 +1,5 @@
 #include "push_swap.h"
 
-long ft_atol(char *s)
-{
-	long res;
-	long sign;
-	int i;
-	res = 0;
-	i = 0;
-	sign = 1;
-	while(s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
-		i++;
-	if(s[i]	== '-' || s[i] == '+')
-	{
-		if(s[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while(s[i] >= '0' && s[i] <= '9')
-	{
-		res = res * 10 + (s[i] - '0');
-	       	i++;
-	}
-	return(res * sign);
-}
-
-void free_stack(t_stack *stack)
-{
-	t_stack *tmp;
-	while(stack)
-	{
-		tmp = stack->next;
-		free(stack);
-		stack = tmp;
-	}
-}
 		
 t_stack *parsing(int argc,char **argv)
 {

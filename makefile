@@ -1,7 +1,7 @@
 NAME = push_swap
 CC = cc
 FLAGS = -Wall -Wextra -Werror
-SRC = main.c list.c parsing.c opiratoin.c
+SRC = main.c list.c parsing.c opiratoin.c sorting.c utils.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

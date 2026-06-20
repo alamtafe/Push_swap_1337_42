@@ -33,4 +33,13 @@ void pb(t_stack **a,t_stack **b);
 void ss(t_stack **a,t_stack **b);
 void sb(t_stack **b);
 void sa(t_stack **a);
+void sort_two(t_stack **stack);
+void sort_three(t_stack **stack);
+void sort_five(t_stack **stack);
+int is_sorted(t_stack *stack);
+int find_min(t_stack *a);
+int find_position(t_stack *a,int min);
+int size_stack(t_stack *a);
+void print(t_stack *a);
+void move_min_to_top(t_stack **a);
 #endif
