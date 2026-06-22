@@ -4,10 +4,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdio.h>
 
 typedef struct s_stack
 {
 	int		value;
+	int		index;
 	struct s_stack 	*next;
 
 }t_stack;
@@ -42,4 +44,8 @@ int find_position(t_stack *a,int min);
 int size_stack(t_stack *a);
 void print(t_stack *a);
 void move_min_to_top(t_stack **a);
+void add_ranks(t_stack *stack);
+int max_bits(t_stack *stack);
+void radix_sort(t_stack **stack);
+void sort_stack(t_stack **stack);
 #endif

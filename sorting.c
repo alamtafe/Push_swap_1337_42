@@ -52,3 +52,47 @@ void sort_five(t_stack **stack)
 	while(b)
 		pa(&b,stack);
 }
+void radix_sort(t_stack **stack)
+{
+	t_stack *b;
+	int bits;
+	int i;
+	int size;
+	int j;
+	add_ranks(*stack);
+	b = NULL;
+	bits = max_bits(*stack);
+	i = 0;
+	while(i < bits)
+	{
+		size = size_stack(*stack);
+		j = 0;
+	      	while(j < size)
+		{
+			if((((*stack)->index >> i ) & 1) == 0)	
+				pb(stack,&b);
+			else
+				ra(stack);
+			j++;
+		}
+		while(b)
+			pa(&b,stack);
+		i++;
+	}
+		
+}
+void sort_stack(t_stack **stack)
+{
+	int size;
+	size = size_stack(*stack);
+	if(is_sorted(*stack))
+			return;
+	else if (size == 2)
+		sort_two(stack);
+	else if (size == 3)
+		sort_three(stack);
+	else if (size == 5)
+		sort_five(stack);
+	else if (size > 5)
+		radix_sort(stack);
+}

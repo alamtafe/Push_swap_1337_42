@@ -1,18 +1,4 @@
 #include "push_swap.h"
-//list.c
-void print(t_stack *stack)
-{
-	char c;
-	while(stack)
-	{
-		c = stack->value + '0';
-
-		write(1,&c,1);
-		write(1,"\n",1);
-			stack = stack->next;
-	}
-	return;
-}
 //sorting.c
 int is_sorted(t_stack *stack)
 {
@@ -83,6 +69,50 @@ void	move_min_to_top(t_stack **a)
 		while((*a)->value != min)
 			ra(a);
 	}
+}
+void add_ranks(t_stack *stack)
+{
+	t_stack *tmp;
+	t_stack *t;
+	int i;
+	if (!stack)
+		return;
+	tmp = stack;
+	while(tmp)
+	{ 
+		i = 0;
+		t = stack;
+		while(t) 
+		{ 
+			if(tmp->value > t->value) 
+				i++;
+			t = t->next;
+		}
+		tmp->index = i;
+		tmp = tmp->next;
+	}
+	
+}	
+int max_bits(t_stack *stack)
+{
+	t_stack *tmp;
+	int max;
+	int bit;
+	tmp = stack;
+	max = tmp->value;
+	while(tmp)
+	{
+		if(max < tmp->index)
+			max = tmp->index;
+		tmp = tmp->next;
+	}
+	bit = 0;
+	while(max > 0)
+	{
+		bit++;
+		max = max / 2;
+	}
+	return(bit);
 }
 //parsing.c
 long ft_atol(char *s)
