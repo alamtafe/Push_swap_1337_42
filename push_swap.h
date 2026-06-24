@@ -48,4 +48,6 @@ void add_ranks(t_stack *stack);
 int max_bits(t_stack *stack);
 void radix_sort(t_stack **stack);
 void sort_stack(t_stack **stack);
+double compute_disorder(t_stack *stack);
+void simple_sort(t_stack **stack);
 #endif

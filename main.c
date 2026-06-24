@@ -12,7 +12,7 @@ int main(int argc,char **argv)
 		write(1,"Erorr\n",6);
 		return(1);
 	}
-	sort_stack(&a);
+	simple_sort(&a);
 	free_stack(a);
 	return(0);	
 }

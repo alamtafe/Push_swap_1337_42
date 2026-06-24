@@ -96,3 +96,18 @@ void sort_stack(t_stack **stack)
 	else if (size > 5)
 		radix_sort(stack);
 }
+void simple_sort(t_stack **stack)
+{
+    t_stack *b;
+
+    b = NULL;
+    while (*stack)
+    {
+        move_min_to_top(stack); 
+        pb(stack, &b);   
+    }
+    while (b)
+    {
+        pa(&b, stack);    
+    }
+}

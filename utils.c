@@ -13,6 +13,31 @@ int is_sorted(t_stack *stack)
 	}
 	return(1);	
 }
+double compute_disorder(t_stack *stack)
+{
+	t_stack *tmp;
+	t_stack *t;
+	double mistakes;
+	double total;
+	tmp = stack;
+	mistakes = 0;
+	total = 0;
+	while(tmp)
+	{	
+		t = tmp->next;
+		while(t)
+		{	total++;
+			if(tmp->value > t->value)
+				mistakes++;
+			t = t->next;
+		}
+		tmp = tmp->next;
+	}
+	if (total == 0)
+		return(0);
+	return (mistakes / total);
+}
+
 int find_min(t_stack *a)
 {
 	t_stack *tmp;
