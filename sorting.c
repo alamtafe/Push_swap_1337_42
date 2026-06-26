@@ -81,21 +81,6 @@ void radix_sort(t_stack **stack)
 	}
 		
 }
-void sort_stack(t_stack **stack)
-{
-	int size;
-	size = size_stack(*stack);
-	if(is_sorted(*stack))
-			return;
-	else if (size == 2)
-		sort_two(stack);
-	else if (size == 3)
-		sort_three(stack);
-	else if (size == 5)
-		sort_five(stack);
-	else if (size > 5)
-		radix_sort(stack);
-}
 void simple_sort(t_stack **stack)
 {
     t_stack *b;
@@ -110,4 +95,20 @@ void simple_sort(t_stack **stack)
     {
         pa(&b, stack);    
     }
+}
+
+void sort_stack(t_stack **stack)
+{
+	if (compute_disorder(*stack) < 0.2)
+	{
+		simple_sort(stack);
+
+	}else if (compute_disorder(*stack) >= 0.2 && compute_disorder(*stack) < 0.5)
+	{
+		//medium_sort(stack);
+
+	}else if (compute_disorder(*stack) >= 0.5)
+	{
+		radix_sort(stack);
+	}
 }

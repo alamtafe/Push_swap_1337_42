@@ -16,6 +16,11 @@ t_stack *parsing(int argc,char **argv)
 	while(argv[i])
 	{
 		k = 0;
+		if (parsing_strategy(argv[i]))
+    		{
+        		i++;
+			continue;
+    		}	
 		while(argv[i][k])
 		{
 			if(!(k == 0) && (argv[i][k] == '-' || argv[i][k] == '+'))

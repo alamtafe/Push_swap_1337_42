@@ -174,3 +174,46 @@ void free_stack(t_stack *stack)
 		stack = tmp;
 	}
 }
+void  strategy(char *str,t_stack **stack)
+{
+	if (ft_strcmp(str,"--simple"))
+	{
+		simple_sort(stack);
+	}else if(ft_strcmp(str,"--medium"))
+	{
+		//medium_sort(stack);
+	}else if (ft_strcmp(str,"--complex"))
+	{
+		radix_sort(stack);
+	}else if (ft_strcmp(str,"--adaptive"))
+	{
+		sort_stack(stack);
+	}else 
+	{
+		write(1,"Error\n",6);	
+	}
+}
+int parsing_strategy(char *argv)
+{
+
+	if (argv[0] == '-' && argv[1]== '-')
+		return(1);
+	return(0);
+}
+int ft_strcmp(char *s1 , char *s2)
+{
+	int i;
+	i = 0;
+	while(s1[i] && s2[i])
+	{
+		if(s1[i] != s2[i])
+			return(0);
+		i++;
+	}
+	if (s1[i] == '\0' && s2[i] == '\0')
+		return(1);
+	return(0);
+}
+int ft_sqrt(int nb)
+{
+
