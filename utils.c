@@ -40,17 +40,27 @@ double compute_disorder(t_stack *stack)
 
 int find_min(t_stack *a)
 {
-	t_stack *tmp;
 	int min;
-	tmp = a;
-	min = tmp->value;//5
-	while(tmp)// 5 2 3 4 1 //2 3 4 1 // 3 4 1 // 4 1
+	min = a->index;
+	while(a)
 	{
-		if(min > tmp->value) //5 > 2 //2 < 3 // 2 < 4 // 2 <4
-			min = tmp->value;//=2
-		tmp = tmp->next;//2 3 4 1 // 3 4 1 //4 1 //1
+		if(min > a->index) 
+			min = a->index;
+		a = a->next;
 	}
 	return(min);
+}
+int find_max(t_stack *a)
+{
+	int max;
+	max = a->index;
+	while(a)
+	{
+		if(max < a->index)
+			max = a->index;
+		a = a->next;
+	}
+	return(max);
 }
 int find_position(t_stack *a,int min)
 {
@@ -58,7 +68,7 @@ int find_position(t_stack *a,int min)
 	tmp = a;
 	int i;
 	i = 0;
-	while(tmp && min != tmp->value)
+	while(tmp && min != tmp->index)
 	{
 		i++;
 		tmp = tmp->next;
@@ -78,21 +88,34 @@ int size_stack(t_stack *a)
 	}
 	return(i);
 }
-void	move_min_to_top(t_stack **a)
+void	move_node_to_top_a(t_stack **a,int n)
 {
-	int min;
 	int pos;
 	int size;
-	min = find_min(*a);
-	pos = find_position(*a,min);
+	pos = find_position(*a,n);
 	size = size_stack(*a);
 	if(pos > size / 2)
 	{
-		while((*a)->value != min)
+		while((*a)->index != n)
 			rra(a);
 	}else{
-		while((*a)->value != min)
+		while((*a)->index != n)
 			ra(a);
+	}
+}
+void	move_node_to_top_b(t_stack **b,int n)
+{
+	int pos;
+	int size;
+	pos = find_position(*b,n);
+	size = size_stack(*b);
+	if(pos > size / 2)
+	{
+		while((*b)->index != n)
+			rrb(b);
+	}else{
+		while((*b)->index != n)
+			rb(b);
 	}
 }
 void add_ranks(t_stack *stack)
@@ -181,17 +204,21 @@ void  strategy(char *str,t_stack **stack)
 		simple_sort(stack);
 	}else if(ft_strcmp(str,"--medium"))
 	{
-		//medium_sort(stack);
+		medium_sort(stack);
 	}else if (ft_strcmp(str,"--complex"))
 	{
 		radix_sort(stack);
 	}else if (ft_strcmp(str,"--adaptive"))
 	{
-		sort_stack(stack);
-	}else 
+		sort_stack(stack);	
+	}else
 	{
 		write(1,"Error\n",6);	
 	}
+}
+int bench_mark(char *str)
+{
+	return(ft_strcmp(str,"--bench"));
 }
 int parsing_strategy(char *argv)
 {
@@ -214,6 +241,23 @@ int ft_strcmp(char *s1 , char *s2)
 		return(1);
 	return(0);
 }
-int ft_sqrt(int nb)
+int has_chunk(t_stack *stack, int start, int end)
 {
-
+	while(stack)
+	{
+		if(stack->index >= start && stack->index <= end)
+			return(1);
+		stack = stack->next;
+	}
+	return(0);
+}
+int chunk_size(int size)
+{
+	int n;
+	n = 1;
+	while(n * n <= size)
+	{
+		n++;
+	}
+	return(n - 1);
+}

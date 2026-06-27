@@ -13,6 +13,7 @@ int main(int argc,char **argv)
 		write(1,"Erorr\n",6);
 		return(1);
 	}
+	add_ranks(a);
 	//printf("%.2f\n",compute_disorder(a));
 	i = argc;
 	int v;

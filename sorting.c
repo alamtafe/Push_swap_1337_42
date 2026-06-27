@@ -45,7 +45,7 @@ void sort_five(t_stack **stack)
 	b = NULL;
 	while( size_stack(*stack) > 3)
 	{
-		move_min_to_top(stack);
+		move_node_to_top_a(stack,find_min(*stack));
 		pb(stack,&b);
 	}
 	sort_three(stack);
@@ -59,7 +59,6 @@ void radix_sort(t_stack **stack)
 	int i;
 	int size;
 	int j;
-	add_ranks(*stack);
 	b = NULL;
 	bits = max_bits(*stack);
 	i = 0;
@@ -88,7 +87,7 @@ void simple_sort(t_stack **stack)
     b = NULL;
     while (*stack)
     {
-        move_min_to_top(stack); 
+        move_node_to_top_a(stack,find_min(*stack)); 
         pb(stack, &b);   
     }
     while (b)
@@ -96,7 +95,39 @@ void simple_sort(t_stack **stack)
         pa(&b, stack);    
     }
 }
+void medium_sort(t_stack **stack)
+{
+	t_stack *b;
+	int size;
+	int size_chunk;
+	int end;
+	int start;
+	b = NULL;
+	size = size_stack(*stack);
+	size_chunk = chunk_size(size);
+	start = 0;
+	end = size_chunk - 1;
+	while(*stack)
+	{
+		while(has_chunk(*stack,start,end))
+		{
+			if((*stack)->index >= start && (*stack)->index <= end)
+				pb(stack,&b);
+			else
+				ra(stack);
 
+		}
+		start += size_chunk;
+		end += size_chunk;
+		if(end > size - 1)
+			end = size - 1;
+	}
+	while(b)
+	{
+		move_node_to_top_b(&b,find_max(b));
+		pa(&b,stack);
+	}
+}
 void sort_stack(t_stack **stack)
 {
 	if (compute_disorder(*stack) < 0.2)
@@ -105,8 +136,7 @@ void sort_stack(t_stack **stack)
 
 	}else if (compute_disorder(*stack) >= 0.2 && compute_disorder(*stack) < 0.5)
 	{
-		//medium_sort(stack);
-
+		medium_sort(stack);
 	}else if (compute_disorder(*stack) >= 0.5)
 	{
 		radix_sort(stack);
