@@ -88,7 +88,7 @@ int size_stack(t_stack *a)
 	}
 	return(i);
 }
-void	move_node_to_top_a(t_stack **a,int n)
+void	move_node_to_top_a(t_stack **a,int n, t_bench *bench)
 {
 	int pos;
 	int size;
@@ -97,13 +97,13 @@ void	move_node_to_top_a(t_stack **a,int n)
 	if(pos > size / 2)
 	{
 		while((*a)->index != n)
-			rra(a);
+			rra(a,bench);
 	}else{
 		while((*a)->index != n)
-			ra(a);
+			ra(a,bench);
 	}
 }
-void	move_node_to_top_b(t_stack **b,int n)
+void	move_node_to_top_b(t_stack **b,int n, t_bench *bench)
 {
 	int pos;
 	int size;
@@ -112,10 +112,10 @@ void	move_node_to_top_b(t_stack **b,int n)
 	if(pos > size / 2)
 	{
 		while((*b)->index != n)
-			rrb(b);
+			rrb(b,bench);
 	}else{
 		while((*b)->index != n)
-			rb(b);
+			rb(b,bench);
 	}
 }
 void add_ranks(t_stack *stack)
@@ -197,35 +197,45 @@ void free_stack(t_stack *stack)
 		stack = tmp;
 	}
 }
-void  strategy(char *str,t_stack **stack)
+int  strategy(char *str,t_stack **stack,t_bench *bench)
 {
 	if (ft_strcmp(str,"--simple"))
 	{
-		simple_sort(stack);
+		bench->disorder = compute_disorder(*stack);
+		bench->strategy = "simple";
+		bench->complexity = "O(n²)";
+		simple_sort(stack,bench);
+		return(1);
 	}else if(ft_strcmp(str,"--medium"))
 	{
-		medium_sort(stack);
+		bench->disorder = compute_disorder(*stack);
+		bench->strategy = "Medium";
+		bench->complexity = "O(n√n)";
+		medium_sort(stack,bench);
+		return(1);
 	}else if (ft_strcmp(str,"--complex"))
 	{
-		radix_sort(stack);
+		bench->disorder = compute_disorder(*stack);
+		bench->strategy = "Complex";
+		bench->complexity = "O(n log n)";
+		radix_sort(stack,bench);
+		return(1);
 	}else if (ft_strcmp(str,"--adaptive"))
 	{
-		sort_stack(stack);	
+		sort_stack(stack,bench);
+		return(1);	
+	}else if (ft_strcmp(str,"--bench"))
+	{
+		return(0);
 	}else
 	{
-		write(1,"Error\n",6);	
+		write(1,"Error\n",6);
+		return(1);	
 	}
 }
 int bench_mark(char *str)
 {
 	return(ft_strcmp(str,"--bench"));
-}
-int parsing_strategy(char *argv)
-{
-
-	if (argv[0] == '-' && argv[1]== '-')
-		return(1);
-	return(0);
 }
 int ft_strcmp(char *s1 , char *s2)
 {
@@ -261,3 +271,58 @@ int chunk_size(int size)
 	}
 	return(n - 1);
 }
+int parsing_strategy(char *argv)
+{
+
+	if (argv[0] == '-' && argv[1]== '-')
+		return(1);
+	return(0);
+}
+void ft_putstr_fd(char *s,int fd)
+{
+	int i;
+	i = 0;
+	if(!s)
+		return;
+	while(s[i])
+	{
+		write(fd,&s[i],1);
+		i++;
+	}
+}
+void ft_putnbr_fd(int nb , int fd)
+{
+	char c;
+	if (nb  == -2147483648)
+	{
+		write(fd,"-2147483648",11);
+		return;
+	}
+	if (nb < 0)
+	{
+		write(fd,"-",1);
+		nb = -nb;
+	}
+	if(nb >= 10)
+		ft_putnbr_fd(nb / 10 ,fd);
+	c = (nb % 10) + '0';
+	write(fd,&c,1);
+}
+void ft_double_fd(double nb,int fd)
+{
+	int intiger;
+	int dicimal;
+	intiger = (int)nb;
+	dicimal =(int)((nb - intiger) * 100 + 0.5);
+	if(dicimal == 100)
+	{
+		intiger++;
+		dicimal = 0;
+	}
+	ft_putnbr_fd(intiger,fd);
+	write(2,".",1);
+	if(dicimal < 10)
+		write(2,"0",1);
+	ft_putnbr_fd(dicimal,fd);
+}
+		

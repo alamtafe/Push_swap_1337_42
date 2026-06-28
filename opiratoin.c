@@ -55,61 +55,83 @@ void reverse_rotate(t_stack **stack)
 	last->next = *stack;
 	*stack  = last;
 }
-void sa(t_stack **a)
+void sa(t_stack **a,t_bench *bench)
 {
 	swap(a);
 	write(1,"sa\n",3);
+	bench->sa++;
+	bench->ops++;
 }
-void sb(t_stack **b)
+void sb(t_stack **b, t_bench *bench)
 {
 	swap(b);
 	write(1,"sb\n",3);
+	bench->sb++;
+	bench->ops++;
 }
-void ss(t_stack **a,t_stack **b)
+void ss(t_stack **a,t_stack **b, t_bench *bench)
 {
 	swap(a);
 	swap(b);
 	write(1,"ss\n",3);
+	bench->ss++;
+	bench->ops++;
 }
-void pb(t_stack **a,t_stack **b)
+void pb(t_stack **a,t_stack **b, t_bench *bench)
 {
 	push(a,b);
 	write(1,"pb\n",3);
+	bench->pb++;
+	bench->ops++;
 }
-void pa(t_stack **b,t_stack **a)
+void pa(t_stack **b,t_stack **a, t_bench *bench)
 {
 	push(b,a);
 	write(1,"pa\n",3);
+	bench->pa++;
+	bench->ops++;
 }
-void ra(t_stack **a)
+void ra(t_stack **a, t_bench *bench)
 {
 	rotate(a);
 	write(1,"ra\n",3);
+	bench->ra++;
+	bench->ops++;
 }
-void rb(t_stack **b)
+void rb(t_stack **b, t_bench *bench)
 {
 	rotate(b);
 	write(1,"rb\n",3);
+	bench->rb++;
+	bench->ops++;
 }
-void rr(t_stack **a,t_stack **b)
+void rr(t_stack **a,t_stack **b, t_bench *bench)
 {
 	rotate(a);
 	rotate(b);
 	write(1,"rr\n",3);
+	bench->rr++;
+	bench->ops++;
 }
-void rra(t_stack **a)
+void rra(t_stack **a, t_bench *bench)
 {
 	reverse_rotate(a);
 	write(1,"rra\n",4);
+	bench->rra++;
+	bench->ops++;
 }
-void rrb(t_stack **b)
+void rrb(t_stack **b, t_bench *bench)
 {
 	reverse_rotate(b);
 	write(1,"rrb\n",4);
+	bench->rrb++;
+	bench->ops++;
 }
-void rrr(t_stack **a,t_stack **b)
+void rrr(t_stack **a,t_stack **b, t_bench *bench)
 {
 	reverse_rotate(a);
 	reverse_rotate(b);
 	write(1,"rrr\n",4);
+	bench->rrr++;
+	bench->ops++;
 }

@@ -1,13 +1,13 @@
 NAME = push_swap
 CC = cc
-FLAGS = -Wall -Wextra -Werror
-SRC = main.c list.c parsing.c opiratoin.c sorting.c utils.c
+FLAGS = -Wall -Wextra -Werror 
+SRC = main.c list.c parsing.c opiratoin.c sorting.c utils.c bench.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+$(NAME) : $(OBJ)  
+	$(CC) $(FLAGS) $(OBJ)  -o $(NAME)
 %.o : %.c push_swap.h
 	$(CC) $(FLAGS) -c  $< -o $@
 
