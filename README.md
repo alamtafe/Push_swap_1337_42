@@ -14,14 +14,14 @@
 - [Parsing System](#parsing-system)
 - [Rank Compression](#rank-compression)
 - [Sorting Algorithms](#sorting-algorithms)
-  - Simple Strategy
-  - Medium Strategy
-  - Complex Strategy (Binary Radix Sort)
-  - Adaptive Strategy
+  - [Simple Strategy](#simple-strategy)
+  - [Medium Strategy](#medium-strategy)
+  - [Complex Strategy (Binary Radix Sort)](#complex-strategy)
+  - [Adaptive Strategy](#adaptive-strategy)
 - [Benchmark Mode](#benchmark-mode)
 - [Complexity Analysis](#complexity-analysis)
 - [Memory Management](#memory-management)
-- [Build & Usage](#build--usage)
+- [Build & Usage](#build)
 
 ---
 
@@ -827,6 +827,24 @@ bench->ops++;
 
 Because of this design, every algorithm automatically generates both the
 required output and the benchmark information.
+
+---
+
+# Sorting Algorithms
+
+
+One of the main objectives of this project is to compare different sorting approaches under the constraints imposed by the `push_swap` subject.
+
+Instead of relying on a single algorithm, this implementation provides four independent strategies. Each one is designed for a different level of input disorder and offers a unique trade-off between implementation simplicity and operational performance.
+
+The **Adaptive Strategy** automatically evaluates the stack and selects the most appropriate algorithm at runtime based on the measured disorder of the input.
+
+| Strategy | Complexity | Best For |
+| :--- | :--- | :--- |
+| **Simple** | $O(n^2)$ | Small or nearly sorted inputs |
+| **Medium** | $O(n\sqrt{n})$ | Moderately disordered datasets |
+| **Complex** | $O(n \log n)$ | Large and highly disordered datasets |
+| **Adaptive** | Dynamic | Automatic strategy selection |
 
 ---
 
